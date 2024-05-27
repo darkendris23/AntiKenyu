@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <!-- Background color -->
+    <item android:drawable="@android:color/darker_gray" />
+
+    <!-- Image icon in the center -->
+    <item
+        android:width="48dp"
+        android:height="48dp"
+        android:gravity="center">
+        <bitmap
+            android:src="@android:drawable/ic_menu_gallery"
+            android:gravity="center" />
+    </item>
+</layer-list>

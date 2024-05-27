@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="8dp"
+    android:layout_weight="1"
+    app:cardCornerRadius="8dp"
+    app:cardElevation="4dp">
+
+    <!-- Your item content here -->
+    <!-- This could be a LinearLayout, RelativeLayout, or any other layout -->
+    <!-- Adjust the content as per your requirements -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="8dp">
+
+        <!-- Your item content here -->
+        <!-- This could include TextViews, ImageViews, etc. -->
+        <!-- Adjust the content as per your requirements -->
+        <!-- Example content -->
+        <ImageView
+            android:scaleType="fitCenter"
+            android:id="@+id/itemImage"
+            android:layout_width="match_parent"
+            android:layout_height="128dp"
+            app:srcCompat="@drawable/placeholder_image_wide" />
+
+        <TextView
+            android:id="@+id/itemName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="16dp"
+            android:text="Your Item"
+            android:textSize="18sp" />
+
+    </LinearLayout>
+
+</androidx.cardview.widget.CardView>
