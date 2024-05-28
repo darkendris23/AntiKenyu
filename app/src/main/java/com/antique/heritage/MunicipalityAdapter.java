@@ -13,46 +13,60 @@ import java.util.List;
 
 public class MunicipalityAdapter extends RecyclerView.Adapter<MunicipalityAdapter.ViewHolder> {
 
-    private List<MainActivity.Municipality> municipalityList;
-    private OnMunicipalityClickListener listener;
+    private List<Item> itemList;
+    private OnItemClickListener listener;
 
-    public MunicipalityAdapter(List<MainActivity.Municipality> municipalityList, OnMunicipalityClickListener listener) {
-        this.municipalityList = municipalityList;
+    public interface OnItemClickListener {
+        void onItemClick(int position);
+    }
+
+    public void setOnItemClickListener(OnItemClickListener listener) {
         this.listener = listener;
     }
 
-    public interface OnMunicipalityClickListener {
-        void onMunicipalityClick(int position);
+    public MunicipalityAdapter(List<Item> itemList) {
+        this.itemList = itemList;
     }
 
-    @NonNull
     @Override
-    public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_location, parent, false);
-        return new ViewHolder(view, listener);
+        return new ViewHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        MainActivity.Municipality municipality = municipalityList.get(position);
-        holder.logoImageView.setImageResource(municipality.getLogoResId());
-        holder.nameTextView.setText(municipality.getName());
+    public void onBindViewHolder(ViewHolder holder, int position) {
+        Item item = itemList.get(position);
+        holder.imageView.setImageResource(item.getImageResId());
+        holder.textView.setText(item.getText());
     }
 
     @Override
     public int getItemCount() {
-        return municipalityList.size();
+        return itemList.size();
     }
 
-    public static class ViewHolder extends RecyclerView.ViewHolder {
-        public ImageView logoImageView;
-        public TextView nameTextView;
+    class ViewHolder extends RecyclerView.ViewHolder {
 
-        public ViewHolder(View itemView, OnMunicipalityClickListener listener) {
+        ImageView imageView;
+        TextView textView;
+
+        ViewHolder(View itemView) {
             super(itemView);
-            logoImageView = itemView.findViewById(R.id.locationLogo);
-            nameTextView = itemView.findViewById(R.id.locationName);
-            itemView.setOnClickListener(v -> listener.onMunicipalityClick(getAdapterPosition()));
+            imageView = itemView.findViewById(R.id.locationLogo);
+            textView = itemView.findViewById(R.id.locationName);
+
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if (listener != null) {
+                        int position = getAdapterPosition();
+                        if (position != RecyclerView.NO_POSITION) {
+                            listener.onItemClick(position);
+                        }
+                    }
+                }
+            });
         }
     }
 }

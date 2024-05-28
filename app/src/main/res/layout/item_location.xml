@@ -8,15 +8,9 @@
     android:layout_marginTop="2.5dp"
     android:layout_marginEnd="5dp"
     android:layout_marginBottom="2.5dp"
+    android:backgroundTint="@color/Primary"
     app:cardCornerRadius="8dp"
     app:cardElevation="4dp">
-
-
-    <ImageView
-        android:id="@+id/imageView3"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        app:srcCompat="@drawable/item_rect" />
 
     <LinearLayout
         android:layout_width="wrap_content"

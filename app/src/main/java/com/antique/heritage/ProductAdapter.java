@@ -1,6 +1,7 @@
 package com.antique.heritage;
 
 import android.content.Intent;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,52 +13,67 @@ import java.util.List;
 
 public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ViewHolder> {
 
-    private static List<Product> productList;
+    private List<Item> itemList;
+    private OnItemClickListener listener;
 
-    public ProductAdapter(List<Product> productList) {
-        this.productList = productList;
+    public interface OnItemClickListener {
+        void onItemClick(int position);
     }
 
-    @NonNull
+    public void setOnItemClickListener(OnItemClickListener listener) {
+        this.listener = listener;
+    }
+
+    public ProductAdapter(List<Item> itemList) {
+        this.itemList = itemList;
+    }
+
     @Override
-    public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_product, parent, false);
         return new ViewHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        Product product = productList.get(position);
-        holder.imageView.setImageResource(product.getImageResId());
-        holder.nameTextView.setText(product.getName());
+    public void onBindViewHolder(ViewHolder holder, int position) {
+        Item item = itemList.get(position);
+        holder.imageView.setImageResource(item.getImageResId());
+        holder.textView.setText(item.getText());
     }
 
     @Override
     public int getItemCount() {
-        return productList.size();
+        return itemList.size();
     }
 
-    public static class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
-        public ImageView imageView;
-        public TextView nameTextView;
+    class ViewHolder extends RecyclerView.ViewHolder {
 
-        public ViewHolder(View itemView) {
+        ImageView imageView;
+        TextView textView;
+
+        ViewHolder(View itemView) {
             super(itemView);
             imageView = itemView.findViewById(R.id.itemImage);
-            nameTextView = itemView.findViewById(R.id.itemName);
-            itemView.setOnClickListener(this);
-        }
+            textView = itemView.findViewById(R.id.itemName);
 
-        @Override
-        public void onClick(View v) {
-            int position = getAdapterPosition();
-            if (position != RecyclerView.NO_POSITION) {
-                Product product = productList.get(position);
-                Intent intent = new Intent(v.getContext(), ProductDetailsActivity.class);
-                intent.putExtra("image_res_id", product.getImageResId());
-                intent.putExtra("name", product.getName());
-                v.getContext().startActivity(intent);
+            if (imageView == null) {
+                Log.e("ProductAdapter", "ImageView is null");
             }
+            if (textView == null) {
+                Log.e("ProductAdapter", "TextView is null");
+            }
+
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if (listener != null) {
+                        int position = getAdapterPosition();
+                        if (position != RecyclerView.NO_POSITION) {
+                            listener.onItemClick(position);
+                        }
+                    }
+                }
+            });
         }
     }
 }

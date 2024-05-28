@@ -24,6 +24,7 @@
         <activity android:name=".MainActivity"/>
         <activity android:name=".ProductsActivity"/>
         <activity android:name=".ProductDetailsActivity" android:label="Product Details" />
+        <activity android:name=".CheckoutActivity"/>
     </application>
 
 </manifest>

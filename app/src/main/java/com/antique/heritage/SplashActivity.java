@@ -26,7 +26,7 @@ public class SplashActivity extends AppCompatActivity {
                 String inputUser = user.getText().toString().trim();
                 String inputPass = pass.getText().toString().trim();
 
-                if (inputUser.equals("user") && inputPass.equals("123456")) {
+                if (inputUser.equals("") && inputPass.equals("")) {
                     Intent i = new Intent(SplashActivity.this, MainActivity.class);
                     startActivity(i);
                 } else {
